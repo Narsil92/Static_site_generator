@@ -22,7 +22,7 @@ class HTMLNode:
     
 class LEAFNode(HTMLNode):
       def __init__(self,tag,value,props=None):
-        if value is None:
+        if not value:
              raise ValueError("No value provided !")
         super().__init__(tag,value,children=[],props=props)
          

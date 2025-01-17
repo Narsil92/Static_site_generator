@@ -23,8 +23,24 @@ class TestLEAFNode(unittest.TestCase):
         expected_html = '<a href="https://www.google.com">Click me!</a>'
         self.assertEqual(leaf.to_html(), expected_html)
 
-    
+        #LeafNode test with empty props
+    def test_to_html_props_empty(self):
+        props ={}
+        leaf=LEAFNode("p","some text", props)
+        expected_html=("<p>some text</p>")
+        self.assertEqual(leaf.to_html(),expected_html)
 
+        #LeafNode test with props having special character
+    def test_to_html_props_special_character(self):
+        props={"data-info": 'Use <important> info & details'}
+        leaf = LEAFNode("div", "Test content", props)
+        expected_html = '<div data-info="Use <important> info & details">Test content</div>'
+        self.assertEqual(leaf.to_html(), expected_html)
+
+        #LeafNode Value Error test where value is empty 
+    def test_to_html_empty_values(self):
+        with self.assertRaises(ValueError):
+            LEAFNode("a","")    
 
 
 
