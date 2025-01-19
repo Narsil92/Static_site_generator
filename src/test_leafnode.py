@@ -11,10 +11,10 @@ class TestLEAFNode(unittest.TestCase):
         leaf = LEAFNode(None, "Martynka")
         self.assertEqual(leaf.to_html(), "Martynka")    
     
-    def test_to_html_missing_values(self):
+    def test_invalid_leaf_node(self):
         with self.assertRaises(ValueError) as context:
-            LEAFNode("p",None)
-        self.assertEqual(str(context.exception), "No value provided !")
+            LEAFNode(None, None)
+        self.assertEqual(str(context.exception), "Must have either a tag or a value!")
 
         # LeafNode with tag, value, and attributes 
     def test_tag_attribute_value(self):
@@ -40,7 +40,7 @@ class TestLEAFNode(unittest.TestCase):
         #LeafNode Value Error test where value is empty 
     def test_to_html_empty_values(self):
         with self.assertRaises(ValueError):
-            LEAFNode("a","")    
+            LEAFNode(None,"")    
 
 
 

@@ -22,7 +22,7 @@ class HTMLNode:
     
 class LEAFNode(HTMLNode):
       def __init__(self,tag,value,props=None):
-        if tag is None and value is None:
+        if not tag and (value is None or value == ""):
             raise ValueError("Must have either a tag or a value!")
         super().__init__(tag,value,children=[],props=props)
          
