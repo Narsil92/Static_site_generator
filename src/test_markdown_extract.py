@@ -27,9 +27,19 @@ class TestMarkdownExtract(unittest.TestCase):
         text = "A link [to Boot.dev](https://boot.dev) and an image ![alt](https://example.com/image.jpg)"
         self.assertEqual(extract_markdown_images(text), [('alt', 'https://example.com/image.jpg')])   
 
-    def test_mixed_content_link(self):
+    def test_mixed_content_link(self): #pass
         text = "A link [to Boot.dev](https://boot.dev) and an image ![alt](https://example.com/image.jpg)"
-        self.assertEqual(extract_markdown_links(text), [('to Boot.dev', 'https://boot.dev')])     
+        self.assertEqual(extract_markdown_links(text), [('to Boot.dev', 'https://boot.dev')])    
+
+    def test_edge_cases(self): #pass
+        # Image URL is empty
+        text = "![alt text]()"
+        self.assertEqual(extract_markdown_images(text), [('alt text', '')])     
+
+    def test_edge_cases_2(self):
+        # Alt text is empty
+        text = "![](https://example.com/image.jpg)"
+        self.assertEqual(extract_markdown_images(text), [('', 'https://example.com/image.jpg')])    
           
     
 if __name__ == "__main__":
