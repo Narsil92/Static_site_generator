@@ -1,5 +1,6 @@
 from textnode import TextNode , TextType
 from htmlnode import HTMLNode, LEAFNode, ParentNode
+from markdown_extract import extract_markdown_images,extract_markdown_links
 # import TextNode and TextType class
 
 #main func
