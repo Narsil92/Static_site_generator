@@ -36,10 +36,14 @@ class TestMarkdownExtract(unittest.TestCase):
         text = "![alt text]()"
         self.assertEqual(extract_markdown_images(text), [('alt text', '')])     
 
-    def test_edge_cases_2(self):
+    def test_edge_cases_2(self): #pass
         # Alt text is empty
         text = "![](https://example.com/image.jpg)"
-        self.assertEqual(extract_markdown_images(text), [('', 'https://example.com/image.jpg')])    
+        self.assertEqual(extract_markdown_images(text), [('', 'https://example.com/image.jpg')])  
+
+    def test_malformed_markdown(self):
+        text = "![alt text [nested]](https://example.com/image.jpg)"
+        self.assertEqual(extract_markdown_images(text), [])      
           
     
 if __name__ == "__main__":
