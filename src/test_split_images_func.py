@@ -5,7 +5,7 @@ from split_images_func import split_nodes_images
 class TestSplitImagesFunc(unittest.TestCase):
     def test_single_image(self):
         node = TextNode("Text before ![alt](image_url) text after", TextType.TEXT)
-        result = split_nodes_images([node], TextType.IMAGE)
+        result = split_nodes_images([node])
         assert len(result) == 3
         assert result[0].text == "Text before "
         assert result[1].text == "alt"
@@ -14,7 +14,7 @@ class TestSplitImagesFunc(unittest.TestCase):
 
     def test_multiple_images(self):
         node = TextNode("Before ![alt1](img1) middle text ![alt2](img2) after text", TextType.TEXT)
-        result = split_nodes_images([node], TextType.IMAGE)
+        result = split_nodes_images([node])
         assert len(result) == 5
         assert result[0].text == "Before "
         assert result[1].text == "alt1"
@@ -26,7 +26,7 @@ class TestSplitImagesFunc(unittest.TestCase):
 
     def test_no_images(self):
         node = TextNode("This is plain text with no images", TextType.TEXT)
-        result = split_nodes_images([node], TextType.IMAGE)
+        result = split_nodes_images([node])
         assert len(result) == 1  # Only one node since no images were found
         assert result[0].text == "This is plain text with no images"
         assert result[0].text_type == TextType.TEXT    
