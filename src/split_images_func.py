@@ -2,9 +2,8 @@ from textnode import TextType,TextNode
 from markdown_extract import extract_markdown_images
 
 
-def split_nodes_images(old_nodes, text_type):
-    if text_type not in TextType:
-        raise ValueError("Invalid text type provided!")
+def split_nodes_images(old_nodes):
+    
     
     new_nodes = []
 
