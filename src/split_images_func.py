@@ -3,35 +3,35 @@ from markdown_extract import extract_markdown_images
 
 
 def split_nodes_images(old_nodes):
-    
-    
     new_nodes = []
 
     for node in old_nodes:
-        # Check if no images are found in the text
-        matches = extract_markdown_images(node.text)  # Pass `node.text` to extract the images
+        matches = extract_markdown_images(node.text)
 
-        if not matches:  # If the list is empty, no images are found
-            new_nodes.append(node)  # Add the original node as-is
-            continue   # Skip to the next iteration of the loop
+        if not matches:
+            new_nodes.append(node)
+            continue
+
+        # Keep track of where we are in the text
+        current_idx = 0
 
         for alt_text, url in matches:
             image_markdown = f"![{alt_text}]({url})"
-            idx = node.text.find(image_markdown)  # Find where the match begins
-            before_img_markdown = node.text[:idx]  # Text before the match
-            if before_img_markdown:
+            idx = node.text.find(image_markdown, current_idx)
+
+            if idx > current_idx:
+                before_img_markdown = node.text[current_idx:idx]
                 new_nodes.append(TextNode(before_img_markdown, TextType.TEXT))
-            
-            new_nodes.append(TextNode(alt_text, TextType.IMAGE, url))           
 
-            after_idx = idx + len(image_markdown)  # Calculate where the image markdown ends
-            after_img_markdown = node.text[after_idx:]  # Remaining text after image markdown
+            new_nodes.append(TextNode(alt_text, TextType.IMAGE, url))
 
-            # Check for remaining text after the current match
-            if after_img_markdown:
-                # Recursively process remaining text to handle more images
-                remaining_nodes = remaining_nodes = split_nodes_images([TextNode(after_img_markdown, TextType.TEXT)])
-                new_nodes.extend(remaining_nodes)
+            # Update current_idx to after this image
+            current_idx = idx + len(image_markdown)
+
+        # Add any remaining text after the last image
+        if current_idx < len(node.text):
+            remaining_text = node.text[current_idx:]
+            new_nodes.append(TextNode(remaining_text, TextType.TEXT))
 
     return new_nodes
            
