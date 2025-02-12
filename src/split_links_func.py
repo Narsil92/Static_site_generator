@@ -31,7 +31,7 @@ def split_nodes_links(old_nodes):
                 after_link_markdown = node.text[after_idx:]  # Remaining text after image markdown  
                 if after_link_markdown:
                 # Recursively process remaining text to handle more images
-                    remaining_nodes = split_nodes_links([TextNode(after_link_markdown, TextType.TEXT)], TextType.LINK)
+                    remaining_nodes = split_nodes_links([TextNode(after_link_markdown, TextType.TEXT)])
                     new_nodes.extend(remaining_nodes)
 
     return new_nodes

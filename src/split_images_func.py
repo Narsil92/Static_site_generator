@@ -30,7 +30,7 @@ def split_nodes_images(old_nodes):
             # Check for remaining text after the current match
             if after_img_markdown:
                 # Recursively process remaining text to handle more images
-                remaining_nodes = split_nodes_images([TextNode(after_img_markdown, TextType.TEXT)], TextType.IMAGE)
+                remaining_nodes = remaining_nodes = split_nodes_images([TextNode(after_img_markdown, TextType.TEXT)])
                 new_nodes.extend(remaining_nodes)
 
     return new_nodes
